@@ -7,7 +7,7 @@ const CONFIG = {
 
   // Telegram Bot
   TELEGRAM_BOT_TOKEN: '8662099993:AAEQXEr2Fixj8veOk8aOOYvlouutTp1CWYY',
-  TELEGRAM_CHAT_ID:   '-1003990230438',
+  TELEGRAM_CHAT_ID:   '5637348402',
 };
 
 /* ═══════════════════════════════════════════════════
