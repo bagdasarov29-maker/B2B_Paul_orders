@@ -4,7 +4,7 @@
 const CONFIG = {
   GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxAWTDNs7HyB7gg1CZRq47jV7E4DDSev03TI1a9ZjduNFfzagLYrHHogmstCCdpAgLaHw/exec',
   TELEGRAM_BOT_TOKEN: '',
-  TELEGRAM_CHAT_ID:   '', 
+  TELEGRAM_CHAT_ID:   '',
 };
 
 /* ═══════════════════════════════════════════════════
@@ -53,6 +53,7 @@ const PRODUCTS = [
    STATE
 ═══════════════════════════════════════════════════ */
 let rowCounter = 0;
+let clientsData = [];
 
 /* ═══════════════════════════════════════════════════
    DOM REFS
@@ -67,6 +68,77 @@ const submitBtn     = document.getElementById('submitBtn');
 const submitLabel   = document.getElementById('submitLabel');
 const submitSpinner = document.getElementById('submitSpinner');
 const successScreen = document.getElementById('successScreen');
+
+/* ═══════════════════════════════════════════════════
+   CLIENT AUTOCOMPLETE
+═══════════════════════════════════════════════════ */
+async function loadClients() {
+  try {
+    const res = await fetch(CONFIG.GOOGLE_SCRIPT_URL + '?action=getClients');
+    clientsData = await res.json();
+    initClientSearch();
+  } catch (err) {
+    console.error('Failed to load clients:', err);
+  }
+}
+
+function initClientSearch() {
+  const input = document.getElementById('client_name');
+  const wrap  = input.closest('.field');
+  wrap.style.position = 'relative';
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'prod-dropdown client-dropdown';
+  dropdown.style.display = 'none';
+  wrap.appendChild(dropdown);
+
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase().trim();
+
+    if (!q || !clientsData.length) {
+      dropdown.style.display = 'none';
+      return;
+    }
+
+    const matches = clientsData.filter(c =>
+      c.name && c.name.toLowerCase().includes(q)
+    );
+
+    if (!matches.length) {
+      dropdown.style.display = 'none';
+      return;
+    }
+
+    dropdown.innerHTML = matches.map(c => `
+      <div class="prod-option client-option"
+           data-name="${c.name}"
+           data-phone="${c.phone || ''}"
+           data-type="${c.type || ''}">
+        <span class="prod-option-name">${c.name}</span>
+        <span class="prod-option-price">${c.type || ''}</span>
+      </div>
+    `).join('');
+
+    dropdown.style.display = 'block';
+  });
+
+  dropdown.addEventListener('mousedown', (e) => {
+    const opt = e.target.closest('.client-option');
+    if (!opt) return;
+
+    document.getElementById('client_name').value = opt.dataset.name;
+    document.getElementById('phone').value       = opt.dataset.phone;
+
+    const typeSelect = document.getElementById('client_type');
+    if (opt.dataset.type) typeSelect.value = opt.dataset.type;
+
+    dropdown.style.display = 'none';
+  });
+
+  input.addEventListener('blur', () => {
+    setTimeout(() => { dropdown.style.display = 'none'; }, 150);
+  });
+}
 
 /* ═══════════════════════════════════════════════════
    PRODUCT ROW WITH SEARCH
@@ -118,13 +190,11 @@ function addProductRow() {
   const qtyInput    = row.querySelector('.prod-qty');
   const noResult    = row.querySelector('.prod-no-result');
 
-  // Открыть при фокусе
   searchInput.addEventListener('focus', () => {
     filterOptions(dropdown, noResult, searchInput.value);
     dropdown.style.display = 'block';
   });
 
-  // Фильтрация при вводе
   searchInput.addEventListener('input', () => {
     hiddenVal.value = '';
     filterOptions(dropdown, noResult, searchInput.value);
@@ -132,7 +202,6 @@ function addProductRow() {
     updateSummary();
   });
 
-  // Выбор продукта кликом
   dropdown.addEventListener('mousedown', (e) => {
     const option = e.target.closest('.prod-option');
     if (!option) return;
@@ -144,11 +213,9 @@ function addProductRow() {
     updateSummary();
   });
 
-  // Закрыть при потере фокуса
   searchInput.addEventListener('blur', () => {
     setTimeout(() => {
       dropdown.style.display = 'none';
-      // Если текст не совпадает с выбранным продуктом — сбросить
       if (hiddenVal.value === '') searchInput.value = '';
     }, 150);
   });
@@ -332,6 +399,7 @@ function resetForm() {
   successScreen.style.display = 'none';
   rowCounter = 0;
   addProductRow();
+  loadClients();
 }
 
 /* ═══════════════════════════════════════════════════
@@ -341,3 +409,4 @@ addBtn.addEventListener('click', addProductRow);
 document.getElementById('delivery_date').min = new Date().toISOString().split('T')[0];
 showEmpty();
 addProductRow();
+loadClients();
