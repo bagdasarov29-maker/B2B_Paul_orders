@@ -22,6 +22,7 @@ const PRODUCTS = [
   { name: "Burger Buns 120g B2B", price: 300 },
   { name: "Burger Buns 40g B2B", price: 120 },
   { name: "Burger Buns 80g B2B", price: 200 },
+  { name: "Briosch 400gr", price: 1500 },
   { name: "Campagne bread B2B", price: 470 },
   { name: "Ciabatta 150g B2B", price: 170 },
   { name: "Ciabatta 250g B2B", price: 250 },
