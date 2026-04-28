@@ -3,7 +3,7 @@
 ═══════════════════════════════════════════════════ */
 const CONFIG = {
   // Google Apps Script Web App URL (инструкция в README)
-  GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzs3Ob_PpEFcmoaLUFvng21RaURJffG0unYuk2yq3C7nOPfrSCBHKdnDfgTdAMlDIr-Ow/exec',
+  GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxAWTDNs7HyB7gg1CZRq47jV7E4DDSev03TI1a9ZjduNFfzagLYrHHogmstCCdpAgLaHw/exec',
 
   // Telegram Bot
   TELEGRAM_BOT_TOKEN: 'YOUR_BOT_TOKEN_HERE',
