@@ -22,7 +22,6 @@ const PRODUCTS = [
   { name: "Burger Buns 120g B2B", price: 300 },
   { name: "Burger Buns 40g B2B", price: 120 },
   { name: "Burger Buns 80g B2B", price: 200 },
-  { name: "Briosch 400gr", price: 1500 },
   { name: "Campagne bread B2B", price: 470 },
   { name: "Ciabatta 150g B2B", price: 170 },
   { name: "Ciabatta 250g B2B", price: 250 },
@@ -53,7 +52,7 @@ const PRODUCTS = [
 /* ═══════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════ */
-let rowCounter = 0;
+let rowCounter  = 0;
 let clientsData = [];
 
 /* ═══════════════════════════════════════════════════
@@ -71,7 +70,7 @@ const submitSpinner = document.getElementById('submitSpinner');
 const successScreen = document.getElementById('successScreen');
 
 /* ═══════════════════════════════════════════════════
-   CLIENT AUTOCOMPLETE
+   CLIENT AUTOCOMPLETE (name + phone + type + hvhh)
 ═══════════════════════════════════════════════════ */
 async function loadClients() {
   try {
@@ -95,26 +94,20 @@ function initClientSearch() {
 
   input.addEventListener('input', () => {
     const q = input.value.toLowerCase().trim();
-
-    if (!q || !clientsData.length) {
-      dropdown.style.display = 'none';
-      return;
-    }
+    if (!q || !clientsData.length) { dropdown.style.display = 'none'; return; }
 
     const matches = clientsData.filter(c =>
       c.name && c.name.toLowerCase().includes(q)
     );
 
-    if (!matches.length) {
-      dropdown.style.display = 'none';
-      return;
-    }
+    if (!matches.length) { dropdown.style.display = 'none'; return; }
 
     dropdown.innerHTML = matches.map(c => `
       <div class="prod-option client-option"
            data-name="${c.name}"
            data-phone="${c.phone || ''}"
-           data-type="${c.type || ''}">
+           data-type="${c.type || ''}"
+           data-hvhh="${c.hvhh || ''}">
         <span class="prod-option-name">${c.name}</span>
         <span class="prod-option-price">${c.type || ''}</span>
       </div>
@@ -129,6 +122,7 @@ function initClientSearch() {
 
     document.getElementById('client_name').value = opt.dataset.name;
     document.getElementById('phone').value       = opt.dataset.phone;
+    document.getElementById('hvhh').value        = opt.dataset.hvhh || '';
 
     const typeSelect = document.getElementById('client_type');
     if (opt.dataset.type) typeSelect.value = opt.dataset.type;
@@ -140,6 +134,13 @@ function initClientSearch() {
     setTimeout(() => { dropdown.style.display = 'none'; }, 150);
   });
 }
+
+/* ═══════════════════════════════════════════════════
+   HVHH — только цифры
+═══════════════════════════════════════════════════ */
+document.getElementById('hvhh').addEventListener('input', (e) => {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
+});
 
 /* ═══════════════════════════════════════════════════
    PRODUCT ROW WITH SEARCH
@@ -278,10 +279,7 @@ function getProductRows() {
 ═══════════════════════════════════════════════════ */
 function updateSummary() {
   const rows = getProductRows();
-  if (!rows.length) {
-    summaryCard.style.display = 'none';
-    return;
-  }
+  if (!rows.length) { summaryCard.style.display = 'none'; return; }
 
   let html = '';
   let total = 0;
@@ -333,6 +331,17 @@ function validateForm() {
     ctField.classList.remove('has-error');
   }
 
+  const dt = document.getElementById('delivery_time');
+  const dtField = dt.closest('.field');
+  if (!dt.value) {
+    dt.classList.add('invalid');
+    dtField.classList.add('has-error');
+    valid = false;
+  } else {
+    dt.classList.remove('invalid');
+    dtField.classList.remove('has-error');
+  }
+
   if (!getProductRows().length) {
     alert('Please add at least one product.');
     valid = false;
@@ -368,8 +377,10 @@ form.addEventListener('submit', async (e) => {
     timestamp:     new Date().toISOString(),
     client_name:   document.getElementById('client_name').value.trim(),
     phone:         document.getElementById('phone').value.trim(),
+    hvhh:          document.getElementById('hvhh').value.trim(),
     client_type:   document.getElementById('client_type').value,
     delivery_date: document.getElementById('delivery_date').value,
+    delivery_time: document.getElementById('delivery_time').value,
     comment:       document.getElementById('comment').value.trim(),
     products:      getProductRows(),
   };
