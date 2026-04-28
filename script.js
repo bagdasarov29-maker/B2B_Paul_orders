@@ -31,7 +31,6 @@ const PRODUCTS = [
   { name: "Crumb bread B2B", price: 150 },
   { name: "Flaxseed bread 400 g B2B", price: 500 },
   { name: "Flemish complet bread B2B", price: 420 },
-  { name: "Hokaido bread B2B", price: 1200 },
   { name: "Hot dog bread 40g B2B", price: 100 },
   { name: "Multigrain bread 1kg B2B", price: 1500 },
   { name: "Multigrain bread 400g B2B", price: 790 },
