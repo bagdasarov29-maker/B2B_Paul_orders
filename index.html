@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B2B Bakery — Order Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grain"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🥖</span>
+        <div>
+          <div class="logo-title">B2B Bakery</div>
+          <div class="logo-sub">Production Order Form</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <form id="orderForm" novalidate>
+
+      <!-- CLIENT INFO -->
+      <section class="card">
+        <div class="card-label">Client Information</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="client_name">Client Name / Company <span class="req">*</span></label>
+            <input type="text" id="client_name" name="client_name" placeholder="e.g. Marriott Yerevan" required />
+            <span class="error-msg">Required field</span>
+          </div>
+          <div class="field">
+            <label for="phone">Phone / WhatsApp <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+374 XX XXX XXX" required />
+            <span class="error-msg">Required field</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="client_type">Client Type <span class="req">*</span></label>
+            <select id="client_type" name="client_type" required>
+              <option value="" disabled selected>Select type...</option>
+              <option value="B2B">B2B</option>
+              <option value="Sveta Galstyan">Sveta Galstyan</option>
+              <option value="Prepa">Prepa</option>
+              <option value="Amar / Ambar">Amar / Ambar</option>
+              <option value="Mariott">Mariott</option>
+              <option value="Cofix">Cofix</option>
+            </select>
+            <span class="error-msg">Required field</span>
+          </div>
+          <div class="field">
+            <label for="delivery_date">Delivery Date <span class="req">*</span></label>
+            <input type="date" id="delivery_date" name="delivery_date" required />
+            <span class="error-msg">Required field</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="comment">Comment</label>
+          <textarea id="comment" name="comment" rows="2" placeholder="Special instructions, delivery time, entrance, etc."></textarea>
+        </div>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section class="card">
+        <div class="card-label">Products</div>
+
+        <div id="productsContainer">
+          <!-- rows injected by JS -->
+        </div>
+
+        <button type="button" class="btn-add" id="addProductBtn">
+          <span class="btn-add-icon">+</span> Add product
+        </button>
+      </section>
+
+      <!-- ORDER SUMMARY -->
+      <section class="card summary-card" id="summaryCard" style="display:none;">
+        <div class="card-label">Order Summary</div>
+        <div id="summaryLines"></div>
+        <div class="summary-total">
+          Total: <strong id="summaryTotal">0 AMD</strong>
+        </div>
+      </section>
+
+      <!-- SUBMIT -->
+      <div class="submit-row">
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span id="submitLabel">Submit Order</span>
+          <span id="submitSpinner" class="spinner" style="display:none;"></span>
+        </button>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen" style="display:none;">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Order Received!</div>
+      <div class="success-sub">We'll contact you shortly to confirm.</div>
+      <button class="btn-new" onclick="resetForm()">Place another order</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
