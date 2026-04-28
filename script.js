@@ -6,8 +6,8 @@ const CONFIG = {
   GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxAWTDNs7HyB7gg1CZRq47jV7E4DDSev03TI1a9ZjduNFfzagLYrHHogmstCCdpAgLaHw/exec',
 
   // Telegram Bot
-  TELEGRAM_BOT_TOKEN: 'YOUR_BOT_TOKEN_HERE',
-  TELEGRAM_CHAT_ID:   'YOUR_CHAT_ID_HERE',
+  TELEGRAM_BOT_TOKEN: '8662099993:AAEQXEr2Fixj8veOk8aOOYvlouutTp1CWYY',
+  TELEGRAM_CHAT_ID:   '-1003990230438',
 };
 
 /* ═══════════════════════════════════════════════════
