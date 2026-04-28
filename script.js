@@ -4,7 +4,7 @@
 const CONFIG = {
   GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxAWTDNs7HyB7gg1CZRq47jV7E4DDSev03TI1a9ZjduNFfzagLYrHHogmstCCdpAgLaHw/exec',
   TELEGRAM_BOT_TOKEN: '',
-  TELEGRAM_CHAT_ID:   '',
+  TELEGRAM_CHAT_ID:   '', 
 };
 
 /* ═══════════════════════════════════════════════════
