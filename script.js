@@ -7,7 +7,7 @@ const CONFIG = {
 
   // Telegram Bot
   TELEGRAM_BOT_TOKEN: '8662099993:AAEQXEr2Fixj8veOk8aOOYvlouutTp1CWYY',
-  TELEGRAM_CHAT_ID:   '5637348402',
+  TELEGRAM_CHAT_ID:   '-1003990230438',
 };
 
 /* ═══════════════════════════════════════════════════
@@ -40,7 +40,6 @@ const PRODUCTS = [
   { name: "Campagne bread B2B", price: 470 },
   { name: "Ciabatta 150g B2B", price: 170 },
   { name: "Ciabatta 250g B2B", price: 250 },
-  { name: "Ciabatta 250g Mozarella B2B", price: 300 },
   { name: "Ciabatta 75g B2B", price: 60 },
   { name: "Court bread 0,400 B2B", price: 420 },
   { name: "Court bread 1kg B2B", price: 1050 },
