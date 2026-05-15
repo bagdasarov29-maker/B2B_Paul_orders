@@ -41,6 +41,8 @@ const PRODUCTS = [
   { name: "Rye bread B2B", price: 600 },
   { name: "Salted focacia bread B2B", price: 1600 },
   { name: "Soup bread 400g B2B", price: 440 },
+  { name: "Small bread with olives B2B", price: 150 },
+  { name: "Small bread simple", price: 100 },
   { name: "SW Charlemange 100g bread B2B", price: 0 },
   { name: "SW Charlemange 130 g bread B2B", price: 150 },
   { name: "SW Charlemange Poppy Seed 130 g bread B2B", price: 210 },
